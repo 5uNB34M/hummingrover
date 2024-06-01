@@ -17,7 +17,7 @@ if (battery < 926){
     basic.showString("LOW BATTERY")
 }
 
-if (battery > 4630){
+if (battery > 926){
     yellowLED()
 }
 
