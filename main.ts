@@ -33,11 +33,11 @@ function greenLED() {
 
 
 function yellowLED(){
-    hummingbird.setLED(ThreePort.Two, 100);
+    hummingbird.setLED(ThreePort.Two, 100)
 }
 
 function redLED(){
-    hummingbird.setLED(ThreePort.One, 100);
+    hummingbird.setLED(ThreePort.One, 100)
 }
 
 function moveF(){
@@ -65,16 +65,31 @@ function stop() {
     hummingbird.setRotationServo(FourPort.Four, 0)
 }
 
-while (distance > 30) {
-    greenLED()
-    moveF()
-}
+basic.forever(function() {
+    const distance = hummingbird.getSensor(SensorType.Distance, ThreePort.One)
 
-while (distance < 30){
-    moveB()
-}
+    while (distance >= 37) {
+        greenLED()
+        moveF()
+    }
 
-if(distance == 20 ){
-    redLED()
-    stop()
-}
+    while (distance < 30) {
+        moveB()
+    }
+
+    if (distance == 20) {
+        redLED()
+        stop()
+    }
+
+    if (distance < 37) {
+        greenLED()
+        // Choose a direction to turn; you might want to alternate or add logic here
+        if (Math.random() > 0.5) {
+            turnL()
+        } else {
+            turnR()
+        }
+    }
+
+})
